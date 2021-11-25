@@ -1,16 +1,31 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 
+
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
+
 public class FormPage extends BasePage {
+
+    private final String downloadPath = "src/test/downloadedTestFiles";
+    private final String downloadedFileName = "test-file-to-download.xlsx";
+    private File downloadedFilesFolder = new File(downloadPath);
+    File downloadedFile =new File("src/test/downloadedTestFiles/test-file-to-download.xlsx");
 
     public FormPage(WebDriver driver) {
         super(driver);
+    }
+
+    public FormPage openWebsite(String webUrl){
+        driver.get(webUrl);
+        return this;
     }
 
     @FindBy(css = "#inputFirstName3")
@@ -95,7 +110,7 @@ public class FormPage extends BasePage {
     private WebElement chooseFileBox;
 
     public FormPage uploadFile(){
-        File file = new File("src/test/testFiles/test1");
+        File file = new File("src/test/testFilesToUpload/test1");
         chooseFileBox.sendKeys(file.getAbsolutePath());
         return this;
     }
@@ -111,24 +126,59 @@ public class FormPage extends BasePage {
     @FindBy (css = "[class= 'col-sm-12 success']")
     private WebElement signInSuccessMessage;
 
-    public boolean successMessageShouldBeVisible(){
-
-        return signInSuccessMessage.isDisplayed();
-
+    public String successMessageText(){
+        return signInSuccessMessage.getText();
     }
 
-    public String expectedMessage(){
-        String expectedMessage = "Form send with success";
+    public String expectedMessageText(String expectedMessage){
         return expectedMessage;
     }
 
+    @FindBy (css = "[class= 'btn btn-secondary btn-lg active']")
+    private WebElement testFileToDownloadButton;
 
-    private FormPage selectRandomOptionFromList(List<WebElement> list) {
+    public FormPage clickTestFileDownloadButton(){
+        testFileToDownloadButton.click();
+        return this;
+    }
+
+    public boolean verifyIfFileIsDownloadedByFolderSize() {
+        int before =getCurrentFolderSize(downloadedFilesFolder);
+        clickTestFileDownloadButton();
+        waitForFile(driver,downloadedFile);
+
+                int after = getCurrentFolderSize(downloadedFilesFolder);
+                if (before+1==after){
+                    downloadedFile.delete();
+                    return true;
+                }           return false;
+    }
+
+    public int getCurrentFolderSize(File file){
+        return file.list().length;
+    }
+
+    public boolean checkIfFileIsDownloadedByFileName(String fileName){
+        waitForFile(driver,downloadedFile);
+        List<File> listOfFiles = Arrays.asList(downloadedFilesFolder.listFiles());
+        boolean found=false;
+        for (File file: listOfFiles) {
+            if (FormatTextHelper.formatFilename(file).equals(fileName)){
+                file.delete();
+                found=true;
+            }
+        }
+        if (found){
+            return true;
+        }
+        return false;
+    }
+
+    private void selectRandomOptionFromList(List<WebElement> list) {
         int randomNumber = new Random().nextInt(list.size());
         list.get(randomNumber).click();
-
-        return this;
-
     }
+
+
 
 }
