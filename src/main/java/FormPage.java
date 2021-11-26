@@ -14,9 +14,12 @@ import java.util.Random;
 public class FormPage extends BasePage {
 
     private final String downloadPath = "src/test/downloadedTestFiles";
-    private final String downloadedFileName = "test-file-to-download.xlsx";
+    protected final String expectedFileName = "test-file-to-download.xlsx";
     protected File downloadedFilesFolder = new File(downloadPath);
-    File downloadedFile = new File("src/test/downloadedTestFiles/test-file-to-download.xlsx");
+    protected File downloadedFile = new File("src/test/downloadedTestFiles/test-file-to-download.xlsx");
+    protected File fileToUpload = new File("src/test/testFilesToUpload/test1");
+    protected final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
+    protected final String expectedSuccessMessage = "Form send with success";
 
     public FormPage(WebDriver driver) {
         super(driver);
@@ -108,8 +111,7 @@ public class FormPage extends BasePage {
     @FindBy(css = "#chooseFile")
     private WebElement chooseFileBox;
 
-    public FormPage uploadFile() {
-        File file = new File("src/test/testFilesToUpload/test1");
+    public FormPage uploadFile(File file) {
         chooseFileBox.sendKeys(file.getAbsolutePath());
         return this;
     }
@@ -141,10 +143,10 @@ public class FormPage extends BasePage {
         return this;
     }
 
-    public boolean verifyIfFileIsDownloadedByFolderSize(int before) {
+    public boolean verifyIfFileIsDownloadedByFolderSize(int folderSizeBeforeDownload) {
         waitForFile(driver, downloadedFile);
-        int after = getCurrentFolderSize(downloadedFilesFolder);
-        if (before + 1 == after) {
+        int folderSizeAfterDownload = getCurrentFolderSize(downloadedFilesFolder);
+        if (folderSizeBeforeDownload + 1 == folderSizeAfterDownload) {
             downloadedFile.delete();
             return true;
         }

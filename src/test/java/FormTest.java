@@ -13,7 +13,7 @@ public class FormTest extends TestBase {
         FormPage formPage = new FormPage(driver);
         assertThat(
                 formPage.
-                        openWebsite("https://seleniumui.moderntester.pl/form.php").
+                        openWebsite(formPage.formPageUrl).
                         fillInFirstName("Test").
                         fillInLastName("test2").
                         fillInEmail("email@sii.pl").
@@ -23,9 +23,9 @@ public class FormTest extends TestBase {
                         selectAutomationTesterProfession().
                         selectRandomContinent().
                         selectSeleniumCommands().
-                        uploadFile().
+                        uploadFile(formPage.fileToUpload).
                         clickSignIn().
-                        successMessageText(), equalTo(formPage.expectedMessageText("Form send with success")));
+                        successMessageText(), equalTo(formPage.expectedMessageText(formPage.expectedSuccessMessage)));
     }
 
 
@@ -34,19 +34,19 @@ public class FormTest extends TestBase {
         FormPage formPage = new FormPage(driver);
         assertThat(
                 formPage.
-                        openWebsite("https://seleniumui.moderntester.pl/form.php").
+                        openWebsite(formPage.formPageUrl).
                         clickTestFileDownloadButton().
-                        verifyIfFileIsDownloadedByFileName("test-file-to-download.xlsx"), equalTo(true));
+                        verifyIfFileIsDownloadedByFileName(formPage.expectedFileName), equalTo(true));
     }
 
     @Test
     void validateDownloadFileOption2() {
         FormPage formPage = new FormPage(driver);
-        int before = formPage.getCurrentFolderSize(formPage.downloadedFilesFolder);
+        int folderSizeBeforeDownload = formPage.getCurrentFolderSize(formPage.downloadedFilesFolder);
         assertThat(
                 formPage.
-                        openWebsite("https://seleniumui.moderntester.pl/form.php").
+                        openWebsite(formPage.formPageUrl).
                         clickTestFileDownloadButton().
-                        verifyIfFileIsDownloadedByFolderSize(before), equalTo(true));
+                        verifyIfFileIsDownloadedByFolderSize(folderSizeBeforeDownload), equalTo(true));
     }
 }
