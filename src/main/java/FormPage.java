@@ -1,7 +1,6 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 
 
@@ -13,20 +12,14 @@ import java.util.Random;
 
 public class FormPage extends BasePage {
 
-    private final String downloadPath = "src/test/downloadedTestFiles";
-    protected final String expectedFileName = "test-file-to-download.xlsx";
-    protected File downloadedFilesFolder = new File(downloadPath);
-    protected File downloadedFile = new File("src/test/downloadedTestFiles/test-file-to-download.xlsx");
-    protected File fileToUpload = new File("src/test/testFilesToUpload/test1");
-    protected final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
-    protected final String expectedSuccessMessage = "Form send with success";
-
     public FormPage(WebDriver driver) {
         super(driver);
     }
+    private static final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
+    protected static final String expectedSuccessMessage = "Form send with success";
 
-    public FormPage openWebsite(String webUrl) {
-        driver.get(webUrl);
+    public FormPage openWebsite() {
+        driver.get(formPageUrl);
         return this;
     }
 
@@ -143,31 +136,28 @@ public class FormPage extends BasePage {
         return this;
     }
 
-    public boolean verifyIfFileIsDownloadedByFolderSize(int folderSizeBeforeDownload) {
-        waitForFile(driver, downloadedFile);
-        int folderSizeAfterDownload = getCurrentFolderSize(downloadedFilesFolder);
+   public boolean verifyIfFileIsDownloadedByFolderSize(int folderSizeBeforeDownload) {
+        waitForFile(driver, FileHandler.downloadedFile);
+        int folderSizeAfterDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
         if (folderSizeBeforeDownload + 1 == folderSizeAfterDownload) {
-            downloadedFile.delete();
+            FileHandler.downloadedFile.delete();
             return true;
         }
         return false;
     }
 
-    public int getCurrentFolderSize(File file) {
-        return file.list().length;
-    }
-
     public boolean verifyIfFileIsDownloadedByFileName(String expectedFileName) {
-        waitForFile(driver, downloadedFile);
-        List<File> listOfFiles = Arrays.asList(downloadedFilesFolder.listFiles());
+        waitForFile(driver, FileHandler.downloadedFile);
+        List<File> listOfFiles = Arrays.asList(FileHandler.downloadedFilesFolder.listFiles());
         boolean found = false;
         for (File file : listOfFiles) {
-            if (FormatTextHelper.formatFilename(file).equals(expectedFileName)) {
-                file.delete();
+            if (FormatTextHandler.formatFilename(file).equals(expectedFileName)) {
+
                 found = true;
             }
         }
         if (found) {
+            FileHandler.downloadedFile.delete();
             return true;
         }
         return false;

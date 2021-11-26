@@ -13,7 +13,7 @@ public class FormTest extends TestBase {
         FormPage formPage = new FormPage(driver);
         assertThat(
                 formPage.
-                        openWebsite(formPage.formPageUrl).
+                        openWebsite().
                         fillInFirstName("Test").
                         fillInLastName("test2").
                         fillInEmail("email@sii.pl").
@@ -23,7 +23,7 @@ public class FormTest extends TestBase {
                         selectAutomationTesterProfession().
                         selectRandomContinent().
                         selectSeleniumCommands().
-                        uploadFile(formPage.fileToUpload).
+                        uploadFile(FileHandler.fileToUpload).
                         clickSignIn().
                         successMessageText(), equalTo(formPage.expectedMessageText(formPage.expectedSuccessMessage)));
     }
@@ -34,18 +34,18 @@ public class FormTest extends TestBase {
         FormPage formPage = new FormPage(driver);
         assertThat(
                 formPage.
-                        openWebsite(formPage.formPageUrl).
+                        openWebsite().
                         clickTestFileDownloadButton().
-                        verifyIfFileIsDownloadedByFileName(formPage.expectedFileName), equalTo(true));
+                        verifyIfFileIsDownloadedByFileName(FileHandler.expectedFileName), equalTo(true));
     }
 
-    @Test
+   @Test
     void validateDownloadFileOption2() {
         FormPage formPage = new FormPage(driver);
-        int folderSizeBeforeDownload = formPage.getCurrentFolderSize(formPage.downloadedFilesFolder);
+        int folderSizeBeforeDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
         assertThat(
                 formPage.
-                        openWebsite(formPage.formPageUrl).
+                        openWebsite().
                         clickTestFileDownloadButton().
                         verifyIfFileIsDownloadedByFolderSize(folderSizeBeforeDownload), equalTo(true));
     }

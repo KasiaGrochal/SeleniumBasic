@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class FormatTextHelper {
+public class FormatTextHandler {
     protected static String formatFilename(File file){
         String formatted=file.toString().replace("src\\test\\downloadedTestFiles\\", "");
         return formatted;
