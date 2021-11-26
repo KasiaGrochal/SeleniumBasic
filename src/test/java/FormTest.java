@@ -30,21 +30,23 @@ public class FormTest extends TestBase {
 
 
     @Test
-    void validateDownloadFileOption()  {
-        FormPage formPage = new FormPage(driver);
-    assertThat(
-        formPage.
-                openWebsite("https://seleniumui.moderntester.pl/form.php").
-                clickTestFileDownloadButton().
-                checkIfFileIsDownloadedByFileName("test-file-to-download.xlsx"), equalTo(true));
-    }
-
-    @Test
-    void validateDownloadFileOptionCount()  {
+    void validateDownloadFileOption() {
         FormPage formPage = new FormPage(driver);
         assertThat(
                 formPage.
                         openWebsite("https://seleniumui.moderntester.pl/form.php").
-                        verifyIfFileIsDownloadedByFolderSize(), equalTo(true));
+                        clickTestFileDownloadButton().
+                        verifyIfFileIsDownloadedByFileName("test-file-to-download.xlsx"), equalTo(true));
+    }
+
+    @Test
+    void validateDownloadFileOption2() {
+        FormPage formPage = new FormPage(driver);
+        int before = formPage.getCurrentFolderSize(formPage.downloadedFilesFolder);
+        assertThat(
+                formPage.
+                        openWebsite("https://seleniumui.moderntester.pl/form.php").
+                        clickTestFileDownloadButton().
+                        verifyIfFileIsDownloadedByFolderSize(before), equalTo(true));
     }
 }
