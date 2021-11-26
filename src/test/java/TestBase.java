@@ -35,8 +35,8 @@ public class TestBase {
 
     }
 
-    @AfterEach
+    /*@AfterEach
     void tearDown() {
         driver.quit();
-    }
+    }*/
 }

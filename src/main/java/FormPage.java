@@ -1,3 +1,4 @@
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,24 +27,24 @@ public class FormPage extends BasePage {
     @FindBy(css = "#inputFirstName3")
     private WebElement firstNameBox;
 
-    public FormPage fillInFirstName(String firstName) {
-        firstNameBox.sendKeys(firstName);
+    public FormPage fillInFirstName() {
+        firstNameBox.sendKeys(FakeDataGenerator.getFakeFirstName());
         return this;
     }
 
     @FindBy(css = "#inputLastName3")
     private WebElement lastNameBox;
 
-    public FormPage fillInLastName(String lastName) {
-        lastNameBox.sendKeys(lastName);
+    public FormPage fillInLastName() {
+        lastNameBox.sendKeys(FakeDataGenerator.getFakeLastName());
         return this;
     }
 
     @FindBy(css = "#inputEmail3")
     private WebElement emailBox;
 
-    public FormPage fillInEmail(String email) {
-        emailBox.sendKeys(email);
+    public FormPage fillInEmail() {
+        emailBox.sendKeys(FakeDataGenerator.getFakeEmail());
         return this;
     }
 
@@ -58,8 +59,8 @@ public class FormPage extends BasePage {
     @FindBy(css = "#inputAge3")
     private WebElement ageBox;
 
-    public FormPage fillInAge(String age) {
-        ageBox.sendKeys(age);
+    public FormPage fillInAge() {
+        ageBox.sendKeys(FakeDataGenerator.getFakeAdultAge());
         return this;
     }
 

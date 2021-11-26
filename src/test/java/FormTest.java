@@ -14,11 +14,11 @@ public class FormTest extends TestBase {
         assertThat(
                 formPage.
                         openWebsite().
-                        fillInFirstName("Test").
-                        fillInLastName("test2").
-                        fillInEmail("email@sii.pl").
+                        fillInFirstName().
+                        fillInLastName().
+                        fillInEmail().
                         selectRandomSex().
-                        fillInAge("19").
+                        fillInAge().
                         selectRandomYearOfExperience().
                         selectAutomationTesterProfession().
                         selectRandomContinent().
