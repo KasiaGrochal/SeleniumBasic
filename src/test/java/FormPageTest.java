@@ -7,7 +7,7 @@ import pages.FormPage;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class FormTest extends TestBase {
+public class FormPageTest extends TestBase {
 
     @Test
     @DisplayName("Validate if appropriate success message appears after completing the form")
