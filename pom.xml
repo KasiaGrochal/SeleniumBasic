@@ -20,6 +20,7 @@
         <maven.surefire.plugin.version>3.0.0-M3</maven.surefire.plugin.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <jackson.version>2.13.0</jackson.version>
+        <javafaker.version>1.0.2</javafaker.version>
 
     </properties>
 
@@ -75,7 +76,7 @@
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
+            <version>${javafaker.version}</version>
         </dependency>
 
 

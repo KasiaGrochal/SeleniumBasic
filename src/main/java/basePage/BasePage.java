@@ -1,3 +1,4 @@
+package basePage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -13,9 +14,10 @@ public abstract class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
-    public void waitForFile(WebDriver driver, File file){
+
+    public void waitForFile(WebDriver driver, File file) {
         FluentWait<WebDriver> wait = new FluentWait(driver);
         wait.pollingEvery(Duration.ofSeconds(1));
         wait.withTimeout(Duration.ofSeconds(10));

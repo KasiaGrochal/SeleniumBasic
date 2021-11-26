@@ -1,6 +1,8 @@
 
+import handlers.FileHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pages.FormPage;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -25,7 +27,7 @@ public class FormTest extends TestBase {
                         selectSeleniumCommands().
                         uploadFile(FileHandler.fileToUpload).
                         clickSignIn().
-                        successMessageText(), equalTo(formPage.expectedMessageText(formPage.expectedSuccessMessage)));
+                        successMessageText(), equalTo(formPage.expectedMessageText(FormPage.expectedSuccessMessage)));
     }
 
 

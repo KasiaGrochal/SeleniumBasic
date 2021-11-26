@@ -1,4 +1,9 @@
-import com.github.javafaker.Faker;
+package pages;
+
+import basePage.BasePage;
+import handlers.FakeDataGenerator;
+import handlers.FileHandler;
+import handlers.FormatTextHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -6,7 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -17,7 +21,8 @@ public class FormPage extends BasePage {
         super(driver);
     }
     private static final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
-    protected static final String expectedSuccessMessage = "Form send with success";
+    public static final String expectedSuccessMessage = "Form send with success";
+
 
     public FormPage openWebsite() {
         driver.get(formPageUrl);
@@ -149,7 +154,7 @@ public class FormPage extends BasePage {
 
     public boolean verifyIfFileIsDownloadedByFileName(String expectedFileName) {
         waitForFile(driver, FileHandler.downloadedFile);
-        List<File> listOfFiles = Arrays.asList(FileHandler.downloadedFilesFolder.listFiles());
+        File[] listOfFiles = FileHandler.downloadedFilesFolder.listFiles();
         boolean found = false;
         for (File file : listOfFiles) {
             if (FormatTextHandler.formatFilename(file).equals(expectedFileName)) {
