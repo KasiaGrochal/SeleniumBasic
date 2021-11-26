@@ -27,7 +27,7 @@ public class FormPageTest extends TestBase {
                         selectSeleniumCommands().
                         uploadFile(FileHandler.fileToUpload).
                         clickSignIn().
-                        successMessageText(), equalTo(formPage.expectedMessageText(FormPage.expectedSuccessMessage)));
+                        displayedSuccessMessageText(), equalTo(formPage.expectedMessageText(FormPage.expectedSuccessMessage)));
     }
 
 

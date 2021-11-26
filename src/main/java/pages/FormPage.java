@@ -126,7 +126,7 @@ public class FormPage extends BasePage {
     @FindBy(css = "[class= 'col-sm-12 success']")
     private WebElement signInSuccessMessage;
 
-    public String successMessageText() {
+    public String displayedSuccessMessageText() {
         return signInSuccessMessage.getText();
     }
 
