@@ -24,7 +24,8 @@ public class FormPageTest extends TestBase {
                         selectRandomYearOfExperience().
                         selectAutomationTesterProfession().
                         selectRandomContinent().
-                        selectSeleniumCommands().
+                        selectSeleniumSwitchCommand().
+                        selectSeleniumWaitCommand().
                         uploadFile(FileHandler.fileToUpload).
                         clickSignIn().
                         displayedSuccessMessageText(), equalTo(formPage.expectedMessageText(FormPage.expectedSuccessMessage)));

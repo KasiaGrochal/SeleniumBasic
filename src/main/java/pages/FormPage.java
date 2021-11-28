@@ -4,6 +4,7 @@ import basePage.BasePage;
 import handlers.FakeDataGenerator;
 import handlers.FileHandler;
 import handlers.FormatTextHandler;
+import models.WebElementsActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,7 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.util.List;
-import java.util.Random;
+
 
 
 public class FormPage extends BasePage {
@@ -57,7 +58,7 @@ public class FormPage extends BasePage {
     private List<WebElement> sexList;
 
     public FormPage selectRandomSex() {
-        selectRandomOptionFromList(sexList);
+        WebElementsActions.selectRandomOptionFromList(sexList).click();
         return this;
     }
 
@@ -73,7 +74,8 @@ public class FormPage extends BasePage {
     private List<WebElement> yearsOfExperienceList;
 
     public FormPage selectRandomYearOfExperience() {
-        selectRandomOptionFromList(yearsOfExperienceList);
+        WebElementsActions.selectRandomOptionFromList(yearsOfExperienceList).click();
+
         return this;
     }
 
@@ -92,7 +94,7 @@ public class FormPage extends BasePage {
         Select select = new Select(continentsDropDown);
         List<WebElement> allContinents = select.getOptions();
         continentsDropDown.click();
-        selectRandomOptionFromList(allContinents);
+        WebElementsActions.selectRandomOptionFromList(allContinents).click();
         return this;
     }
 
@@ -101,11 +103,15 @@ public class FormPage extends BasePage {
     @FindBy(css = "[value='wait-commands']")
     private WebElement seleniumWaitCommand;
 
-    public FormPage selectSeleniumCommands() {
+    public FormPage selectSeleniumSwitchCommand() {
         seleniumSwitchCommand.click();
+        return this;
+    }
+    public FormPage selectSeleniumWaitCommand() {
         seleniumWaitCommand.click();
         return this;
     }
+
 
     @FindBy(css = "#chooseFile")
     private WebElement chooseFileBox;
@@ -169,10 +175,7 @@ public class FormPage extends BasePage {
         return false;
     }
 
-    private void selectRandomOptionFromList(List<WebElement> list) {
-        int randomNumber = new Random().nextInt(list.size());
-        list.get(randomNumber).click();
-    }
+
 
 
 }
