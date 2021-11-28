@@ -97,8 +97,7 @@ public class FormPage extends BasePage {
     }
 
     public FormPage selectRandomContinent() {
-        Select select = new Select(continentsDropDown);
-        List<WebElement> allContinents = select.getOptions();
+        List<WebElement> allContinents = WebElementsActions.getWebelementListFromDropdownList(continentsDropDown);
         WebElementsActions.selectRandomOptionFromList(allContinents).click();
         return this;
     }

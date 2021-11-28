@@ -1,5 +1,6 @@
 package basePage;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -29,6 +30,7 @@ public abstract class BasePage {
         FluentWait<WebDriver> wait = new FluentWait(driver);
         wait.pollingEvery(Duration.ofSeconds(1));
         wait.withTimeout(Duration.ofSeconds(10));
+        wait.ignoring(NoSuchElementException.class);
         wait.until(x -> webElement.isDisplayed());
     }
 
