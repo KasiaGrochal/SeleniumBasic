@@ -33,24 +33,25 @@ public class FormPage extends BasePage {
     @FindBy(css = "#inputFirstName3")
     private WebElement firstNameBox;
 
-    public FormPage fillInFirstName() {
-        firstNameBox.sendKeys(FakeDataGenerator.getFakeFirstName());
+    public FormPage fillInFirstName(String firstName) {
+        firstNameBox.sendKeys(firstName);
         return this;
     }
+
 
     @FindBy(css = "#inputLastName3")
     private WebElement lastNameBox;
 
-    public FormPage fillInLastName() {
-        lastNameBox.sendKeys(FakeDataGenerator.getFakeLastName());
+    public FormPage fillInLastName(String lastName) {
+        lastNameBox.sendKeys(lastName);
         return this;
     }
 
     @FindBy(css = "#inputEmail3")
     private WebElement emailBox;
 
-    public FormPage fillInEmail() {
-        emailBox.sendKeys(FakeDataGenerator.getFakeEmail());
+    public FormPage fillInEmail(String email) {
+        emailBox.sendKeys(email);
         return this;
     }
 
@@ -65,8 +66,8 @@ public class FormPage extends BasePage {
     @FindBy(css = "#inputAge3")
     private WebElement ageBox;
 
-    public FormPage fillInAge() {
-        ageBox.sendKeys(FakeDataGenerator.getFakeAdultAge());
+    public FormPage fillInAge(String age) {
+        ageBox.sendKeys(age);
         return this;
     }
 
@@ -90,10 +91,14 @@ public class FormPage extends BasePage {
     @FindBy(css = "#selectContinents")
     private WebElement continentsDropDown;
 
+    public FormPage clickOnContinentsDropDown(){
+        continentsDropDown.click();
+        return this;
+    }
+
     public FormPage selectRandomContinent() {
         Select select = new Select(continentsDropDown);
         List<WebElement> allContinents = select.getOptions();
-        continentsDropDown.click();
         WebElementsActions.selectRandomOptionFromList(allContinents).click();
         return this;
     }
@@ -133,6 +138,7 @@ public class FormPage extends BasePage {
     private WebElement signInSuccessMessage;
 
     public String displayedSuccessMessageText() {
+        waitForWebElement(driver,signInSuccessMessage);
         return signInSuccessMessage.getText();
     }
 
@@ -145,37 +151,8 @@ public class FormPage extends BasePage {
 
     public FormPage clickTestFileDownloadButton() {
         testFileToDownloadButton.click();
+        waitForFile(driver, FileHandler.downloadedFile);
         return this;
     }
-
-   public boolean verifyIfFileIsDownloadedByFolderSize(int folderSizeBeforeDownload) {
-        waitForFile(driver, FileHandler.downloadedFile);
-        int folderSizeAfterDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
-        if (folderSizeBeforeDownload + 1 == folderSizeAfterDownload) {
-            FileHandler.downloadedFile.delete();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean verifyIfFileIsDownloadedByFileName(String expectedFileName) {
-        waitForFile(driver, FileHandler.downloadedFile);
-        File[] listOfFiles = FileHandler.downloadedFilesFolder.listFiles();
-        boolean found = false;
-        for (File file : listOfFiles) {
-            if (FormatTextHandler.formatFilename(file).equals(expectedFileName)) {
-
-                found = true;
-            }
-        }
-        if (found) {
-            FileHandler.downloadedFile.delete();
-            return true;
-        }
-        return false;
-    }
-
-
-
 
 }

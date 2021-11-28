@@ -1,4 +1,5 @@
 
+import handlers.FakeDataGenerator;
 import handlers.FileHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,13 +17,14 @@ public class FormPageTest extends TestBase {
         assertThat(
                 formPage.
                         openWebsite().
-                        fillInFirstName().
-                        fillInLastName().
-                        fillInEmail().
+                        fillInFirstName(FakeDataGenerator.getFakeFirstName()).
+                        fillInLastName(FakeDataGenerator.getFakeLastName()).
+                        fillInEmail(FakeDataGenerator.getFakeEmail()).
                         selectRandomSex().
-                        fillInAge().
+                        fillInAge(FakeDataGenerator.getFakeAdultAge()).
                         selectRandomYearOfExperience().
                         selectAutomationTesterProfession().
+                        clickOnContinentsDropDown().
                         selectRandomContinent().
                         selectSeleniumSwitchCommand().
                         selectSeleniumWaitCommand().
@@ -35,21 +37,23 @@ public class FormPageTest extends TestBase {
     @Test
     void validateDownloadFileOption() {
         FormPage formPage = new FormPage(driver);
+        formPage.
+                openWebsite().
+                clickTestFileDownloadButton();
         assertThat(
-                formPage.
-                        openWebsite().
-                        clickTestFileDownloadButton().
-                        verifyIfFileIsDownloadedByFileName(FileHandler.expectedFileName), equalTo(true));
+                FileHandler.verifyIfFileIsDownloadedByFileName(FileHandler.expectedFileName), equalTo(true));
+        FileHandler.deleteFile(FileHandler.downloadedFile);
     }
 
-   @Test
+    @Test
     void validateDownloadFileOption2() {
         FormPage formPage = new FormPage(driver);
         int folderSizeBeforeDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
+        formPage.
+                openWebsite().
+                clickTestFileDownloadButton();
         assertThat(
-                formPage.
-                        openWebsite().
-                        clickTestFileDownloadButton().
-                        verifyIfFileIsDownloadedByFolderSize(folderSizeBeforeDownload), equalTo(true));
+                FileHandler.verifyIfFileIsDownloadedByFolderSize(folderSizeBeforeDownload), equalTo(true));
+        FileHandler.deleteFile(FileHandler.downloadedFile);
     }
 }

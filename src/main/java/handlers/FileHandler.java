@@ -1,5 +1,7 @@
 package handlers;
 
+import basePage.BasePage;
+
 import java.io.File;
 
 public class FileHandler {
@@ -13,4 +15,30 @@ public class FileHandler {
     public static int getCurrentFolderSize(File file) {
         return file.list().length;
     }
+    public static boolean verifyIfFileIsDownloadedByFolderSize(int folderSizeBeforeDownload) {
+        int folderSizeAfterDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
+        if (folderSizeBeforeDownload + 1 == folderSizeAfterDownload) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean verifyIfFileIsDownloadedByFileName(String expectedFileName) {
+        File[] listOfFiles = FileHandler.downloadedFilesFolder.listFiles();
+        boolean found = false;
+        for (File file : listOfFiles) {
+            if (FormatTextHandler.formatFilename(file).equals(expectedFileName)) {
+                found = true;
+            }
+        }
+        if (found) {
+            return true;
+        }
+        return false;
+    }
+    public static void deleteFile(File file){
+        file.delete();
+    }
+
+
 }
