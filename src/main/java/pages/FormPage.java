@@ -137,9 +137,6 @@ public class FormPage extends BasePage {
         return signInSuccessMessage.getText();
     }
 
-    public String expectedMessageText(String expectedMessage) {
-        return expectedMessage;
-    }
 
     @FindBy(css = "[class= 'btn btn-secondary btn-lg active']")
     private WebElement testFileToDownloadButton;
