@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class FileHandler {
 
-    public static final String expectedFileName = "test-file-to-download.xlsx";
+
     public static File downloadedFilesFolder = new File("src/test/downloadedTestFiles");
     public static File downloadedFile = new File("src/test/downloadedTestFiles/test-file-to-download.xlsx");
     public static File fileToUpload = new File("src/test/testFilesToUpload/test1");

@@ -40,7 +40,7 @@ public class FormPageTest extends TestBase {
                 openWebsite().
                 clickTestFileDownloadButton();
         assertThat(
-                FileHandler.verifyIfFileIsDownloadedByFileName(FileHandler.expectedFileName), equalTo(true));
+                FileHandler.verifyIfFileIsDownloadedByFileName(formPage.expectedFileName), equalTo(true));
         FileHandler.deleteFile(FileHandler.downloadedFile);
     }
 

@@ -16,7 +16,7 @@ public class FormPage extends BasePage {
     public FormPage(WebDriver driver) {
         super(driver);
     }
-
+    public  final String expectedFileName = "test-file-to-download.xlsx";
     private static final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
     public static final String expectedSuccessMessage = "Form send with success";
 
