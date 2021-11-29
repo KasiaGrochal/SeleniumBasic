@@ -20,14 +20,14 @@ public abstract class BasePage {
     }
 
     public void waitForFile(WebDriver driver, File file) {
-        FluentWait<WebDriver> wait = new FluentWait(driver);
+        FluentWait<WebDriver> wait = new FluentWait<>(driver);
         wait.pollingEvery(Duration.ofSeconds(1));
         wait.withTimeout(Duration.ofSeconds(10));
         wait.until(x -> file.exists());
     }
 
     public void waitForWebElement(WebDriver driver, WebElement webElement) {
-        FluentWait<WebDriver> wait = new FluentWait(driver);
+        FluentWait<WebDriver> wait = new FluentWait<>(driver);
         wait.pollingEvery(Duration.ofSeconds(1));
         wait.withTimeout(Duration.ofSeconds(10));
         wait.ignoring(NoSuchElementException.class);
