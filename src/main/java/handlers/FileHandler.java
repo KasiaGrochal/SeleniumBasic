@@ -14,12 +14,13 @@ public class FileHandler {
     public static int getCurrentFolderSize(File file) {
         return Objects.requireNonNull(file.list()).length;
     }
-    public static boolean verifyIfFileIsDownloadedByFolderSize(int folderSizeBeforeDownload) {
+
+    public static boolean didFolderSizeIncreaseByOne(int folderSizeBeforeDownload) {
         int folderSizeAfterDownload = getCurrentFolderSize(downloadedFilesFolder);
         return folderSizeBeforeDownload + 1 == folderSizeAfterDownload;
     }
 
-    public static boolean verifyIfFileIsDownloadedByFileName(String expectedFileName) {
+    public static boolean doesFileExistInDownloadFolder(String expectedFileName) {
         File[] listOfFiles = downloadedFilesFolder.listFiles();
         boolean found = false;
 

@@ -40,7 +40,7 @@ public class FormPageTest extends TestBase {
                 openWebsite().
                 clickTestFileDownloadButton();
         assertThat(
-                FileHandler.verifyIfFileIsDownloadedByFileName(formPage.expectedFileName), equalTo(true));
+                FileHandler.doesFileExistInDownloadFolder(formPage.expectedFileName), equalTo(true));
         FileHandler.deleteFile(FileHandler.downloadedFile);
     }
 
@@ -53,7 +53,7 @@ public class FormPageTest extends TestBase {
                 openWebsite().
                 clickTestFileDownloadButton();
         assertThat(
-                FileHandler.verifyIfFileIsDownloadedByFolderSize(folderSizeBeforeDownload), equalTo(true));
+                FileHandler.didFolderSizeIncreaseByOne(folderSizeBeforeDownload), equalTo(true));
         FileHandler.deleteFile(FileHandler.downloadedFile);
     }
 }
