@@ -1,6 +1,7 @@
 import handlers.FakeDataGenerator;
 import handlers.FileHandler;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.FormPage;
 
@@ -11,6 +12,8 @@ public class FormPageTest extends TestBase {
 
     @Test
     @DisplayName("Validate if appropriate success message appears after completing the form")
+    @Tag("regression")
+    @Tag("formValidation")
     void validateFormSuccessMessage() {
         FormPage formPage = new FormPage(driver);
         assertThat(
@@ -34,6 +37,8 @@ public class FormPageTest extends TestBase {
 
     @Test
     @DisplayName("Validate if file was downloaded after clicking Test File Download Button")
+    @Tag("regression")
+    @Tag("downloadsValidation")
     void validateDownloadFileOption() {
         FormPage formPage = new FormPage(driver);
         formPage.
@@ -46,6 +51,8 @@ public class FormPageTest extends TestBase {
 
     @Test
     @DisplayName("Validate if file was downloaded after clicking Test File Download Button")
+    @Tag("regression")
+    @Tag("downloadsValidation")
     void validateDownloadFileOption2() {
         FormPage formPage = new FormPage(driver);
         int folderSizeBeforeDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
