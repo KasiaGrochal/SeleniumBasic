@@ -1,19 +1,14 @@
 package pages;
 
 import basePage.BasePage;
-import handlers.FakeDataGenerator;
 import handlers.FileHandler;
-import handlers.FormatTextHandler;
 import models.WebElementsActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-
 
 import java.io.File;
 import java.util.List;
-
 
 
 public class FormPage extends BasePage {
@@ -21,6 +16,7 @@ public class FormPage extends BasePage {
     public FormPage(WebDriver driver) {
         super(driver);
     }
+
     private static final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
     public static final String expectedSuccessMessage = "Form send with success";
 
@@ -37,7 +33,6 @@ public class FormPage extends BasePage {
         firstNameBox.sendKeys(firstName);
         return this;
     }
-
 
     @FindBy(css = "#inputLastName3")
     private WebElement lastNameBox;
@@ -59,7 +54,7 @@ public class FormPage extends BasePage {
     private List<WebElement> sexList;
 
     public FormPage selectRandomSex() {
-        WebElementsActions.selectRandomOptionFromList(sexList).click();
+        WebElementsActions.getRandomWebElementFromList(sexList).click();
         return this;
     }
 
@@ -75,8 +70,7 @@ public class FormPage extends BasePage {
     private List<WebElement> yearsOfExperienceList;
 
     public FormPage selectRandomYearOfExperience() {
-        WebElementsActions.selectRandomOptionFromList(yearsOfExperienceList).click();
-
+        WebElementsActions.getRandomWebElementFromList(yearsOfExperienceList).click();
         return this;
     }
 
@@ -91,14 +85,15 @@ public class FormPage extends BasePage {
     @FindBy(css = "#selectContinents")
     private WebElement continentsDropDown;
 
-    public FormPage clickOnContinentsDropDown(){
-        continentsDropDown.click();
-        return this;
-    }
-
     public FormPage selectRandomContinent() {
         List<WebElement> allContinents = WebElementsActions.getWebelementListFromDropdownList(continentsDropDown);
-        WebElementsActions.selectRandomOptionFromList(allContinents).click();
+        for (int i = 0; i < 1; i++) {
+            WebElement randomContinent = WebElementsActions.getRandomWebElementFromList(allContinents);
+            if (randomContinent.getAttribute("value").isEmpty()) {
+                i--;
+            }
+            randomContinent.click();
+        }
         return this;
     }
 
@@ -111,6 +106,7 @@ public class FormPage extends BasePage {
         seleniumSwitchCommand.click();
         return this;
     }
+
     public FormPage selectSeleniumWaitCommand() {
         seleniumWaitCommand.click();
         return this;
@@ -137,7 +133,7 @@ public class FormPage extends BasePage {
     private WebElement signInSuccessMessage;
 
     public String displayedSuccessMessageText() {
-        waitForWebElement(driver,signInSuccessMessage);
+        waitForWebElement(driver, signInSuccessMessage);
         return signInSuccessMessage.getText();
     }
 

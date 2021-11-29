@@ -34,4 +34,6 @@ public abstract class BasePage {
         wait.until(x -> webElement.isDisplayed());
     }
 
+
+
 }

@@ -1,4 +1,3 @@
-
 import handlers.FakeDataGenerator;
 import handlers.FileHandler;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +23,6 @@ public class FormPageTest extends TestBase {
                         fillInAge(FakeDataGenerator.getFakeAdultAge()).
                         selectRandomYearOfExperience().
                         selectAutomationTesterProfession().
-                        clickOnContinentsDropDown().
                         selectRandomContinent().
                         selectSeleniumSwitchCommand().
                         selectSeleniumWaitCommand().
@@ -35,6 +33,7 @@ public class FormPageTest extends TestBase {
 
 
     @Test
+    @DisplayName("Validate if file was downloaded after clicking Test File Download Button")
     void validateDownloadFileOption() {
         FormPage formPage = new FormPage(driver);
         formPage.
@@ -46,6 +45,7 @@ public class FormPageTest extends TestBase {
     }
 
     @Test
+    @DisplayName("Validate if file was downloaded after clicking Test File Download Button")
     void validateDownloadFileOption2() {
         FormPage formPage = new FormPage(driver);
         int folderSizeBeforeDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);

@@ -8,13 +8,13 @@ import java.util.Random;
 
 public class WebElementsActions {
 
-    public static WebElement selectRandomOptionFromList(List<WebElement> list) {
+    public static WebElement getRandomWebElementFromList(List<WebElement> list) {
         int randomNumber = new Random().nextInt(list.size());
         return list.get(randomNumber);
     }
-    public static List<WebElement> getWebelementListFromDropdownList(WebElement webElement){
+
+    public static List<WebElement> getWebelementListFromDropdownList(WebElement webElement) {
         Select select = new Select(webElement);
-        List<WebElement> listOfWebelements = select.getOptions();
-        return listOfWebelements;
+        return select.getOptions();
     }
 }

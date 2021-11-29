@@ -23,7 +23,7 @@ public class TestBase {
         ChromeOptions chromeOptions = new ChromeOptions();
         File file = new File("src/test/downloadedTestFiles");
         String downloadFilepath = file.getAbsolutePath();
-        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
         chromePrefs.put("download.default_directory", downloadFilepath);
 
