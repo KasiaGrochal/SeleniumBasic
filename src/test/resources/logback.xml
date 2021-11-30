@@ -12,7 +12,7 @@
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${DEV_HOME}/TestLog_${bySecond}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"><!-- daily rollover -->
-            <fileNamePattern>${DEV_HOME}/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
+            <fileNamePattern>${DEV_HOME}/TestLog.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
             <maxHistory>3</maxHistory>
             <totalSizeCap>30KB</totalSizeCap>
         </rollingPolicy>
