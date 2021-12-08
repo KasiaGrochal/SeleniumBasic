@@ -1,8 +1,5 @@
 package handlers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,13 +9,9 @@ import java.util.Locale;
 
 public class DateHandler {
 
-private static Logger logger = LoggerFactory.getLogger(DateHandler.class);
-
-
-    public static String formatDateToMMddYYYY(Date date){
-        SimpleDateFormat formatter= new SimpleDateFormat("MM/dd/yyyy");
+    public static String formatDateToMMddYYYY(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         return formatter.format(date);
-
     }
 
     public static Date formatDateFromString(String string) throws ParseException {
@@ -27,7 +20,7 @@ private static Logger logger = LoggerFactory.getLogger(DateHandler.class);
         return date;
     }
 
-    public static String formatDateToYearOnly(Date date){
+    public static String formatDateToYearOnly(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         return formatter.format(date);
     }
@@ -38,31 +31,27 @@ private static Logger logger = LoggerFactory.getLogger(DateHandler.class);
         calendar.setTime(date);
         return calendar.get(Calendar.MONTH);
     }
-    public static int getCurrentMonthAsInt() throws ParseException {
-        Date date= DateHandler.getCurrentDate();
+
+    public static int getCurrentMonthAsInt() {
+        Date date = DateHandler.getCurrentDate();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal.get(Calendar.MONTH);
     }
 
-    public static int getCurrentYearAsInt(){
+    public static int getCurrentYearAsInt() {
         return Integer.parseInt(DateHandler.formatDateToYearOnly(DateHandler.getCurrentDate()));
     }
 
-
-
-    public static Date getCurrentDate(){
+    public static Date getCurrentDate() {
         Date date = new Date(System.currentTimeMillis());
         return date;
     }
 
-    public static String getCurrentDateForFileNames(){
+    public static String getCurrentDateForFileNames() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss");
         return formatter.format(date);
     }
-
-
-
 
 }
