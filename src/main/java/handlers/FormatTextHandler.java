@@ -8,8 +8,4 @@ public class FormatTextHandler {
         return file.toString().replace("src\\test\\downloadedTestFiles\\", "");
     }
 
-    public static String changeDotToSpace(String string){
-        return string.replace("."," ");
-    }
-
 }
