@@ -50,7 +50,6 @@ public class ModalDialogPage extends BasePage {
     }
 
     public ModalDialogPage fillInFullName(String fullName) {
-
         tabFullName.clear();
         tabFullName.sendKeys(fullName);
         completedForm = completedForm + fullName;
