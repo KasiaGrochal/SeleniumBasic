@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.BasePage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModalDialogPage extends BasePage {
@@ -19,7 +20,8 @@ public class ModalDialogPage extends BasePage {
         super(driver);
     }
 
-    public static String completedForm = "";
+
+    private List<String> addedUserDetails = new ArrayList<>();
 
     @FindBy(css = "#create-user")
     private WebElement createNewUserButton;
@@ -50,9 +52,10 @@ public class ModalDialogPage extends BasePage {
     }
 
     public ModalDialogPage fillInFullName(String fullName) {
+        waitForWebElementToBeClickable(tabFullName);
         tabFullName.clear();
         tabFullName.sendKeys(fullName);
-        completedForm = completedForm + fullName;
+        addedUserDetails.add(fullName);
         logger.info("Full name filled with: {}", fullName);
         return this;
     }
@@ -60,7 +63,7 @@ public class ModalDialogPage extends BasePage {
     public ModalDialogPage fillInEmail(String email) {
         tabEmail.clear();
         tabEmail.sendKeys(email);
-        completedForm = completedForm + email;
+        addedUserDetails.add(email);
         logger.info("Email filled with: {}", email);
         return this;
     }
@@ -68,7 +71,7 @@ public class ModalDialogPage extends BasePage {
     public ModalDialogPage fillInPassword(String password) {
         tabPassword.clear();
         tabPassword.sendKeys(password);
-        completedForm = completedForm + password;
+        addedUserDetails.add(password);
         logger.info("Password filled with: {}", password);
         return this;
     }
@@ -79,14 +82,26 @@ public class ModalDialogPage extends BasePage {
         return this;
     }
 
-    public String getLastAddedUser() {
-        String lastAddedFullName = existingUsersList.get(existingUsersList.size() - 1).findElement(By.cssSelector("td")).getText();
-        String lastAddedEmail = existingUsersList.get(existingUsersList.size() - 1).findElement(By.cssSelector("td:nth-child(2)")).getText();
-        String lastAddedPassword = existingUsersList.get(existingUsersList.size() - 1).findElement(By.cssSelector("td:nth-child(3)")).getText();
-        String lastAddedUser = lastAddedFullName + lastAddedEmail + lastAddedPassword;
-        logger.info("Last added user on the list: {}", lastAddedUser);
-        return lastAddedUser;
+    public boolean doesLastAddedUserExistOnUserList(){
+        return (addedUserDetails.get(0).equals(getLastAddedName())
+                && (addedUserDetails.get(1).equals(getLastAddedUserName()))
+                && (addedUserDetails.get(2).equals(getLastAddedPassword())));
     }
 
+    private String getLastAddedName(){
+      return   getLastAdded("td");
+    }
+
+    private String getLastAddedUserName(){
+        return   getLastAdded("td:nth-child(2)");
+    }
+
+    private String getLastAddedPassword(){
+        return   getLastAdded("td:nth-child(3)");
+    }
+
+    private String getLastAdded(String selector){
+        return existingUsersList.get(existingUsersList.size()-1).findElement(By.cssSelector(selector)).getText();
+    }
 
 }

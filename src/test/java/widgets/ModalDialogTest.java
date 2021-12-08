@@ -36,7 +36,9 @@ public class ModalDialogTest extends TestBase {
                         fillInFullName(faker.getFakeFullNameLimit(3, 16)).
                         fillInEmail(faker.getFakeEmail()).
                         fillInPassword(faker.getFakePasswordLimit(3, 16)).
-                        clickOnCreateAnAccountButton().getLastAddedUser(), equalTo(ModalDialogPage.completedForm));
-        logger.info("New user added to the list correctly: {}", ModalDialogPage.completedForm);
+                        clickOnCreateAnAccountButton().
+                        doesLastAddedUserExistOnUserList(),equalTo(true));
+
+        logger.info("New user added to the list correctly. Test validateCreateNewUserWidget() Completed successfully");
     }
 }
