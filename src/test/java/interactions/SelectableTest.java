@@ -22,17 +22,21 @@ public class SelectableTest extends TestBase {
     @Tag("selectableItems")
     void validateYouSelectedText() {
         Website website = new Website(driver);
+        SelectablePage selectablePage = new SelectablePage(driver);
+
+        website.
+                openWebsite().
+                navigateToTopBarPage().
+                clickOnTopMenuInteractionsButton().
+                clickOnSelectableButton().
+                selectItem(1).
+                selectItem(3).
+                selectItem(4);
+
+        String expectedText = "You've selected: #1 #3 #4.";
         assertThat(
-                website.
-                        openWebsite().
-                        navigateToTopBarPage().
-                        clickOnTopMenuInteractionsButton().
-                        clickOnSelectableButton().
-                        selectItem(1).
-                        selectItem(3).
-                        selectItem(4).
-                        getYouSelectedText(), equalTo(SelectablePage.expectedText));
-        logger.info("Expected text: {} Test validateYouSelectedText() completed successfully", SelectablePage.expectedText);
+                expectedText, equalTo(selectablePage.getYouSelectedText()));
+        logger.info("Expected text: {} Test validateYouSelectedText() completed successfully", expectedText);
 
     }
 }
