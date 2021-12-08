@@ -1,3 +1,5 @@
+package basic;
+
 import handlers.FakeDataGenerator;
 import handlers.FileHandler;
 import org.junit.jupiter.api.DisplayName;
@@ -7,24 +9,30 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.FormPage;
+import pages.Website;
+import pages.basic.FormPage;
+import testBase.TestBase;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 @Execution(ExecutionMode.CONCURRENT)
 public class FormPageTest extends TestBase {
-Logger logger = LoggerFactory.getLogger(FormPageTest.class);
+    Logger logger = LoggerFactory.getLogger(FormPageTest.class);
+
     @Test
     @DisplayName("Validate if appropriate success message appears after completing the form")
     @Tag("regression")
     @Tag("formValidation")
     void validateFormSuccessMessage() {
-        FormPage formPage = new FormPage(driver);
+        Website website = new Website(driver);
         FakeDataGenerator faker = new FakeDataGenerator();
         assertThat(
-                formPage.
+                website.
                         openWebsite().
+                        navigateToTopBarPage().
+                        clickOnTopMenuBasicButton().
+                        clickOnFormButton().
                         fillInFirstName(faker.getFakeFirstName()).
                         fillInLastName(faker.getFakeLastName()).
                         fillInEmail(faker.getFakeEmail()).
@@ -47,12 +55,15 @@ Logger logger = LoggerFactory.getLogger(FormPageTest.class);
     @Tag("regression")
     @Tag("downloadsValidation")
     void validateDownloadFileOption() {
-        FormPage formPage = new FormPage(driver);
-        formPage.
+        Website website = new Website(driver);
+        website.
                 openWebsite().
+                navigateToTopBarPage().
+                clickOnTopMenuBasicButton().
+                clickOnFormButton().
                 clickTestFileDownloadButton();
         assertThat(
-                FileHandler.doesFileExistInDownloadFolder(formPage.expectedFileName), equalTo(true));
+                FileHandler.doesFileExistInDownloadFolder(FormPage.expectedFileName), equalTo(true));
         FileHandler.deleteFile(FileHandler.downloadedFile);
     }*/
 
@@ -61,10 +72,13 @@ Logger logger = LoggerFactory.getLogger(FormPageTest.class);
     @Tag("regression")
     @Tag("downloadsValidation")
     void validateDownloadFileOption2() {
-        FormPage formPage = new FormPage(driver);
+        Website website = new Website(driver);
         int folderSizeBeforeDownload = FileHandler.getCurrentFolderSize(FileHandler.downloadedFilesFolder);
-        formPage.
+        website.
                 openWebsite().
+                navigateToTopBarPage().
+                clickOnTopMenuBasicButton().
+                clickOnFormButton().
                 clickTestFileDownloadButton();
         assertThat(
                 FileHandler.didFolderSizeIncreaseByOne(folderSizeBeforeDownload), equalTo(true));

@@ -1,3 +1,5 @@
+package testBase;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -33,13 +36,14 @@ public class TestBase {
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
         driver = new ChromeDriver(chromeOptions);
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         logger.info("Browser initialized properly");
         driver.manage().window().maximize();
         logger.info("Browser window maximized");
     }
 
-    @AfterEach
+   @AfterEach
     void tearDown() {
         driver.quit();
         logger.info("Browser closed properly");

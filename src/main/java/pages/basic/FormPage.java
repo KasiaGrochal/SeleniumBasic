@@ -1,12 +1,12 @@
-package pages;
+package pages.basic;
 
-import basePage.BasePage;
 import handlers.FileHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pages.BasePage;
 
 import java.io.File;
 import java.util.List;
@@ -19,7 +19,7 @@ public class FormPage extends BasePage {
         super(driver);
     }
 
-    public final String expectedFileName = "test-file-to-download.xlsx";
+    public static final String expectedFileName = "test-file-to-download.xlsx";
     private static final String formPageUrl = "https://seleniumui.moderntester.pl/form.php";
     public static final String expectedSuccessMessage = "Form send with success";
 
@@ -147,7 +147,7 @@ public class FormPage extends BasePage {
     }
 
     public String displayedSuccessMessageText() {
-        waitForWebElement(driver, signInSuccessMessage);
+        waitForWebElementToBeVisable(signInSuccessMessage);
         String successMessage = signInSuccessMessage.getText();
         logger.info("Success message displayed: '{}'", successMessage);
         logger.info("Expected success message: '{}'", expectedSuccessMessage);
