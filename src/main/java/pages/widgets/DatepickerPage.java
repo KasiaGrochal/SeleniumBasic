@@ -44,6 +44,11 @@ public class DatepickerPage extends BasePage {
     @FindBy(css = ".ui-state-default")
     private List<WebElement> calendarAllVisibleDays;
 
+    public String getDateBoxText() {
+        String dateBoxText = dateBox.getAttribute("value");
+        logger.info("Displayed date in date box: {}", dateBoxText);
+        return dateBoxText;
+    }
 
     private List<WebElement> getAllCurrentMonthDays() {
         List<WebElement> currentMonthDays = new ArrayList<>();
@@ -53,6 +58,14 @@ public class DatepickerPage extends BasePage {
             }
         }
         return currentMonthDays;
+    }
+
+    public DatepickerPage selectCurrentDate(List<String> expectedDateBoxText) throws ParseException {
+        currentDate.click();
+        expectedDateBoxText.removeAll(expectedDateBoxText);
+        expectedDateBoxText.add(getSelectedDateInFormatMMddYYYY(currentDate));
+        logger.info("Selected date: {}", expectedDateBoxText);
+        return this;
     }
 
     public DatepickerPage selectDayOfMonth(int day, List<String> expectedDateBoxText) throws ParseException {
@@ -79,54 +92,20 @@ public class DatepickerPage extends BasePage {
         return this;
     }
 
-
     public DatepickerPage clickOnDateBox() {
         dateBox.click();
         logger.info("Clicked on date box");
         return this;
     }
 
-    public DatepickerPage selectCurrentDate(List<String> expectedDateBoxText) throws ParseException {
-        currentDate.click();
-        expectedDateBoxText.removeAll(expectedDateBoxText);
-        expectedDateBoxText.add(getSelectedDateInFormatMMddYYYY(currentDate));
-        logger.info("Selected date: {}", expectedDateBoxText);
+    private DatepickerPage clickOnCalendarArrow(int expectedCondition, int currentState) {
+        if (expectedCondition > currentState) {
+            clickOnCalendarRightArrow(1);
+        } else if (expectedCondition < currentState) {
+            clickOnCalendarLeftArrow(1);
+        }
         return this;
     }
-
-    public String getDateBoxText() {
-        String dateBoxText = dateBox.getAttribute("value");
-        logger.info("Displayed date in date box: {}", dateBoxText);
-        return dateBoxText;
-    }
-
-    private int getVisibleYearAsInt() {
-        return Integer.parseInt(getVisibleYear());
-    }
-
-    private String getVisibleMonth() {
-        waitForWebElementToBeVisable(visibleMonth);
-        return visibleMonth.getText();
-    }
-
-    private String getVisibleYear() {
-        waitForWebElementToBeVisable(visibleYear);
-        return visibleYear.getText();
-    }
-
-    private String getSelectedDateInFormatMMddYYYY(WebElement selectedDay) throws ParseException {
-        return DateHandler.formatDateToMMddYYYY(getSelectedDateAsDate(selectedDay));
-    }
-
-    private Date getSelectedDateAsDate(WebElement selectedDay) throws ParseException {
-        return DateHandler.formatDateFromString(getSelectedDateAsShown(selectedDay));
-    }
-
-    public String getSelectedDateAsShown(WebElement selectedDay) {
-        String date = getVisibleMonth() + "/" + selectedDay.getText() + "/" + getVisibleYear();
-        return date;
-    }
-
 
     public DatepickerPage clickOnCalendarRightArrow(int repeat) {
         for (int i = 0; i < repeat; i++) {
@@ -168,6 +147,12 @@ public class DatepickerPage extends BasePage {
         return this;
     }
 
+    public DatepickerPage goToCurrentMonth() throws ParseException {
+        goToCurrentYear();
+        moveToMonth(DateHandler.getCurrentMonthAsInt());
+        return this;
+    }
+
     public DatepickerPage goToNextMonth() throws ParseException {
         goToCurrentMonth();
         clickOnCalendarRightArrow(1);
@@ -192,25 +177,37 @@ public class DatepickerPage extends BasePage {
         return this;
     }
 
-    private DatepickerPage clickOnCalendarArrow(int expectedCondition, int currentState) {
-        if (expectedCondition > currentState) {
-            clickOnCalendarRightArrow(1);
-        } else if (expectedCondition < currentState) {
-            clickOnCalendarLeftArrow(1);
-        }
-        return this;
+
+
+    private int getVisibleYearAsInt() {
+        return Integer.parseInt(getVisibleYear());
     }
 
+    private String getVisibleMonth() {
+        waitForWebElementToBeVisable(visibleMonth);
+        return visibleMonth.getText();
+    }
+
+    private String getVisibleYear() {
+        waitForWebElementToBeVisable(visibleYear);
+        return visibleYear.getText();
+    }
 
     private int getVisibleMonthAsInt() throws ParseException {
         return DateHandler.getMonthAsInt(getVisibleMonth(), Locale.UK);
     }
 
-    public DatepickerPage goToCurrentMonth() throws ParseException {
-        goToCurrentYear();
-        moveToMonth(DateHandler.getCurrentMonthAsInt());
-        return this;
+    private String getSelectedDateInFormatMMddYYYY(WebElement selectedDay) throws ParseException {
+        return DateHandler.formatDateToMMddYYYY(getSelectedDateAsDate(selectedDay));
     }
 
+    private Date getSelectedDateAsDate(WebElement selectedDay) throws ParseException {
+        return DateHandler.formatDateFromString(getSelectedDateAsShown(selectedDay));
+    }
+
+    private String getSelectedDateAsShown(WebElement selectedDay) {
+        String date = getVisibleMonth() + "/" + selectedDay.getText() + "/" + getVisibleYear();
+        return date;
+    }
 
 }
