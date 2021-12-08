@@ -101,6 +101,8 @@ public class ModalDialogPage extends BasePage {
     }
 
     private String getLastAdded(String selector){
+        String lastAdded=existingUsersList.get(existingUsersList.size()-1).findElement(By.cssSelector(selector)).getText();
+        logger.info("Last added user details displayed: {}",lastAdded);
         return existingUsersList.get(existingUsersList.size()-1).findElement(By.cssSelector(selector)).getText();
     }
 
