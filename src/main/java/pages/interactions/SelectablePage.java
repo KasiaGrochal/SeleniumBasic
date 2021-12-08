@@ -19,8 +19,6 @@ public class SelectablePage extends BasePage {
         super(driver);
     }
 
-    public static String expectedText = "You've selected: ";
-
     @FindBy(css = ".ui-selectee")
     List<WebElement> selectableItems;
 
@@ -31,7 +29,6 @@ public class SelectablePage extends BasePage {
         action.keyDown(Keys.CONTROL).build().perform();
         WebElement selectedItem = selectableItems.get(itemIndex - 1);
         selectedItem.click();
-        expectedText = FormatTextHandler.changeDotToSpace(expectedText) + "#" + itemIndex + ".";
         logger.info("Selected item: {}", selectedItem.getText());
         return this;
     }
