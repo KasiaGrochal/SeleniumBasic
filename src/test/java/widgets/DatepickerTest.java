@@ -38,46 +38,43 @@ public class DatepickerTest extends TestBase {
                 clickOnDatepickerButton().
                 clickOnDateBox().
                 selectCurrentDate(expectedDateBoxText);
-        assertThat(expectedDateBoxText.contains(datepickerPage.getDateBoxText()), equalTo(true));
-        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText);
+        assertThat(expectedDateBoxText.get(0).equals(datepickerPage.getDateBoxText()), equalTo(true));
+        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText.get(0));
 
         datepickerPage.
                 clickOnDateBox().
                 goToNextMonth().
                 selectDayOfMonth(1, expectedDateBoxText);
-        assertThat(expectedDateBoxText.contains(datepickerPage.getDateBoxText()), equalTo(true));
-        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText);
+        assertThat(expectedDateBoxText.get(0).equals(datepickerPage.getDateBoxText()), equalTo(true));
+        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText.get(0));
 
         datepickerPage.
                 clickOnDateBox().
                 goToNextYear().
                 goToMonth(january).
                 selectDayOfMonth(31, expectedDateBoxText);
-        assertThat(expectedDateBoxText.contains(datepickerPage.getDateBoxText()), equalTo(true));
-        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText);
+        assertThat(expectedDateBoxText.get(0).equals(datepickerPage.getDateBoxText()), equalTo(true));
+        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText.get(0));
 
         datepickerPage.
                 clickOnDateBox().
                 selectDayOfMonth(31, expectedDateBoxText);
-        assertThat(expectedDateBoxText.contains(datepickerPage.getDateBoxText()), equalTo(true));
-        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText);
+        assertThat(expectedDateBoxText.get(0).equals(datepickerPage.getDateBoxText()), equalTo(true));
+        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText.get(0));
 
         datepickerPage.
                 clickOnDateBox().
                 goToPreviousMonth().
                 selectRandomDayOfMonth(expectedDateBoxText);
-        assertThat(expectedDateBoxText.contains(datepickerPage.getDateBoxText()), equalTo(true));
-        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText);
+        assertThat(expectedDateBoxText.get(0).equals(datepickerPage.getDateBoxText()), equalTo(true));
+        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText.get(0));
 
         datepickerPage.
                 clickOnDateBox().
-                goToPreviousYear().
-                goToRandomMonth().
+                goToRandomMonthInLastYear().
                 selectRandomDayOfMonth(expectedDateBoxText);
-        assertThat(expectedDateBoxText.contains(datepickerPage.getDateBoxText()), equalTo(true));
-        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText);
-
-
+        assertThat(expectedDateBoxText.get(0).equals(datepickerPage.getDateBoxText()), equalTo(true));
+        logger.info("Date shown in the box same as date picked: {}, Test completed successfully.", expectedDateBoxText.get(0));
     }
 
 }

@@ -10,6 +10,7 @@ import pages.BasePage;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -72,7 +73,8 @@ public class DatepickerPage extends BasePage {
         return this;
     }
 
-    public DatepickerPage goToRandomMonth() {
+    public DatepickerPage goToRandomMonthInLastYear() {
+        goToPreviousYear();
         clickOnCalendarLeftArrow(getRandomInt(12));
         return this;
     }
@@ -113,8 +115,11 @@ public class DatepickerPage extends BasePage {
     }
 
     private String getSelectedDateInFormatMMddYYYY(WebElement selectedDay) throws ParseException {
-        String dateInFormat = DateHandler.formatDateToMMddYYYY(DateHandler.formatDateFromString(getSelectedDateAsShown(selectedDay)));
-        return dateInFormat;
+        return DateHandler.formatDateToMMddYYYY(getSelectedDateAsDate(selectedDay));
+    }
+
+    private Date getSelectedDateAsDate(WebElement selectedDay) throws ParseException {
+        return DateHandler.formatDateFromString(getSelectedDateAsShown(selectedDay));
     }
 
     public String getSelectedDateAsShown(WebElement selectedDay) {
