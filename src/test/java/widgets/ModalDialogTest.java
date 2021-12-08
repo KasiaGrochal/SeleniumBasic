@@ -1,6 +1,5 @@
 package widgets;
 
-
 import handlers.FakeDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.Website;
-import pages.widgets.ModalDialogPage;
+
 import testBase.TestBase;
 
 import static org.hamcrest.MatcherAssert.assertThat;
