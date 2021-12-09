@@ -23,32 +23,38 @@ public class DraggablePage extends BasePage {
     @FindBy(css = ".display-4")
     WebElement header;
 
-
-    public DraggablePage dragElementToRightBottom() {
-        action.dragAndDropBy(draggableElement, getRightPageEnd(), getPageBottom()).build().perform();
-        logger.info("Moved element to the right bottom of the page.");
+    public DraggablePage dragElementTo(int x, int y) {
+        action.dragAndDropBy(draggableElement, x, y).build().perform();
         return this;
     }
 
+    public DraggablePage dragElementToRightBottom() {
+        dragElementTo(getRightPageEnd(),getPageBottom());
+        logger.info("Moved element to the right bottom of the page.");
+        return this;
+        }
+
     public DraggablePage dragElementToRightTop() {
-        action.dragAndDropBy(draggableElement, getRightPageEnd(), getPageTop()).build().perform();
+        dragElementTo(getRightPageEnd(),getPageTop());
         logger.info("Moved element to the right top of the page.");
+        return this;
+    }
+
+    public DraggablePage dragElementToLeftBottom() {
+        dragElementTo(getLeftPageEnd(),getPageBottom());
+        logger.info("Moved element to the left bottom of the page.");
         return this;
     }
 
     public DraggablePage dragElementToTheCenter() {
         int moveX = (getPageWidth() / 2 - getCurrentLocationX() - getElementWidth() / 2);
         int moveY = (getPageHeight() / 2 - getCurrentLocationY() - getElementHeight() / 2);
-        action.dragAndDropBy(draggableElement, moveX, moveY).build().perform();
+        dragElementTo(moveX,moveY);
         logger.info("Moved element to the center of the page.");
         return this;
     }
 
-    public DraggablePage dragElementToLeftBottom() {
-        action.dragAndDropBy(draggableElement, getLeftPageEnd(), getPageBottom()).build().perform();
-        logger.info("Moved element to the left bottom of the page.");
-        return this;
-    }
+
 
     private int getPageWidth() {
         return driver.manage().window().getSize().getWidth();
