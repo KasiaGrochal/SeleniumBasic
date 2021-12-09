@@ -2,6 +2,7 @@ package widgets;
 
 import handlers.FakeDataGenerator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ public class ModalDialogTest extends TestBase {
 
     Logger logger = LoggerFactory.getLogger(ModalDialogTest.class);
 
-    @Test
+    @RepeatedTest(5)
     @DisplayName("Validate adding user")
     @Tag("regression")
     @Tag("modalDialog")

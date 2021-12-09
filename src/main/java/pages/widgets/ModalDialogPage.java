@@ -44,6 +44,9 @@ public class ModalDialogPage extends BasePage {
     @FindBy(css = "tbody > tr")
     private List<WebElement> existingUsersList;
 
+    @FindBy(css = "#dialog-form")
+    private WebElement dialogForm;
+
     public ModalDialogPage clickOnCreateNewUserButton() {
         createNewUserButton.click();
         waitForWebElementToBeVisable(createUserDialog);
@@ -52,7 +55,7 @@ public class ModalDialogPage extends BasePage {
     }
 
     public ModalDialogPage fillInFullName(String fullName) {
-        waitForWebElementToBeClickable(tabFullName);
+        waitForWebElementToBeVisable(dialogForm);
         tabFullName.clear();
         tabFullName.sendKeys(fullName);
         addedUserDetails.add(fullName);
