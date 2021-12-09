@@ -61,6 +61,7 @@ public class DatepickerPage extends BasePage {
     }
 
     public DatepickerPage selectCurrentDate(List<String> expectedDateBoxText) throws ParseException {
+        goToCurrentMonth();
         currentDate.click();
         expectedDateBoxText.removeAll(expectedDateBoxText);
         expectedDateBoxText.add(getSelectedDateInFormatMMddYYYY(currentDate));
@@ -176,8 +177,6 @@ public class DatepickerPage extends BasePage {
         }
         return this;
     }
-
-
 
     private int getVisibleYearAsInt() {
         return Integer.parseInt(getVisibleYear());
