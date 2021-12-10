@@ -3,6 +3,8 @@ package basic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.Website;
@@ -13,6 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static pages.basic.AlertsPage.getExpectedPromptPopUpAcceptMessage;
 
+@Execution(ExecutionMode.CONCURRENT)
 public class AlertsTest extends TestBase {
     Logger logger = LoggerFactory.getLogger(AlertsTest.class);
 

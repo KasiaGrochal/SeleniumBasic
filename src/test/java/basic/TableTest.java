@@ -19,6 +19,6 @@ public class TableTest extends TestBase {
                 navigateToTopBarPage().
                 clickOnTopMenuBasicButton().
                 clickOnTableButton().
-                filterTableByStateAndHeight();
+                filter();
     }
 }

@@ -11,9 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.time.Duration;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
+
 
 public class TestBase {
     Logger logger = LoggerFactory.getLogger(TestBase.class);
@@ -36,8 +35,6 @@ public class TestBase {
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
         driver = new ChromeDriver(chromeOptions);
-
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         logger.info("Browser initialized properly");
         driver.manage().window().maximize();
         logger.info("Browser window maximized");

@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.basic.*;
+import pages.basic.tablePage.TablePage;
 import pages.interactions.*;
 import pages.others.HighSitePage;
 import pages.widgets.*;

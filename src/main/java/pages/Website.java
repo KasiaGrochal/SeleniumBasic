@@ -2,9 +2,7 @@ package pages;
 
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import pages.basic.MainPage;
-import pages.basic.TablePage;
 
 public class Website extends BasePage {
 

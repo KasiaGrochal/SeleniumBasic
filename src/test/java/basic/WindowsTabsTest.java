@@ -25,7 +25,8 @@ public class WindowsTabsTest extends TestBase {
                 clickOnWindowsTabsButton().
                 clickOnNewBrowserWindowButton().
                 switchToNewBrowserWindow().
-                filterTableByStateAndHeight().
+                filter();
+        windowsTabsPage.
                 closeCurrentWindow();
         windowsTabsPage.
                 switchToParentWindow().
@@ -37,7 +38,8 @@ public class WindowsTabsTest extends TestBase {
                 switchToParentWindow().
                 clickOnNewBrowserTabButton().
                 switchToNewBrowserWindow().
-                filterTableByStateAndHeight().
+                filter();
+        windowsTabsPage.
                 closeCurrentWindow();
 
 
