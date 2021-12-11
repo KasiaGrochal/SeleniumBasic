@@ -25,11 +25,19 @@ public class TablePage extends BasePage {
         return listOfRowPage;
     }
 
-    public void filter(){
+    public List<String> filterByHeightAndState(){
+        List<String> filteredList = new ArrayList<>();
         for (RowPage rowPage: getList()){
             if((rowPage.getHeight()>4000)&&(rowPage.getState().equals("Switzerland"))){
-                System.out.println(rowPage.getRank() + " - " +rowPage.getPeak()+ " - " + rowPage.getMountainRange());
+                filteredList.add(rowPage.getRankPeakMountainRange());
             }
+        }
+        return filteredList;
+    }
+
+    public void printFilteredList(List <String> filteredList){
+        for (String row : filteredList){
+            System.out.println(row);
         }
     }
 

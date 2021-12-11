@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.Website;
 import pages.basic.WindowsTabsPage;
+import pages.basic.tablePage.TablePage;
 import testBase.TestBase;
 
 
@@ -17,6 +18,7 @@ public class WindowsTabsTest extends TestBase {
     void switchWindowTest() {
         Website website = new Website(driver);
         WindowsTabsPage windowsTabsPage = new WindowsTabsPage(driver);
+        TablePage tablePage = new TablePage(driver);
 
         website.
                 openWebsite().
@@ -25,7 +27,7 @@ public class WindowsTabsTest extends TestBase {
                 clickOnWindowsTabsButton().
                 clickOnNewBrowserWindowButton().
                 switchToNewBrowserWindow().
-                filter();
+                printFilteredList(tablePage.filterByHeightAndState());
         windowsTabsPage.
                 closeCurrentWindow();
         windowsTabsPage.
@@ -38,7 +40,7 @@ public class WindowsTabsTest extends TestBase {
                 switchToParentWindow().
                 clickOnNewBrowserTabButton().
                 switchToNewBrowserWindow().
-                filter();
+                printFilteredList(tablePage.filterByHeightAndState());
         windowsTabsPage.
                 closeCurrentWindow();
 

@@ -31,29 +31,28 @@ public class RowPage extends BasePage {
         PageFactory.initElements(parent, this);
     }
 
+    public String getRankPeakMountainRange(){
+        return getRank()+" - "+ getPeak() + " " +getMountainRange();
+    }
+
     public String getRank() {
-        String rank1 = rank.getText();
-        return rank1;
+        return rank.getText();
     }
 
     public String getPeak() {
-        String peak1 = peak.getText();
-        return peak1;
+        return peak.getText();
     }
 
     public String getMountainRange() {
-        String mountainRangeText = mountainRange.getText();
-        return mountainRangeText;
+        return mountainRange.getText();
     }
 
     public String getState() {
-        String state1 = state.getText();
-        return state1;
+      return state.getText();
     }
 
     public int getHeight() {
-        int height1 = Integer.parseInt(height.getText());
-        return height1;
+        return Integer.parseInt(height.getText());
     }
 
 }
