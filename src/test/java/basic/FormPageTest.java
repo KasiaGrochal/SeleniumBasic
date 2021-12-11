@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.Website;
 import pages.basic.FormPage;
+import pages.basic.MainPage;
 import testBase.TestBase;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,27 +26,29 @@ public class FormPageTest extends TestBase {
     @Tag("regression")
     @Tag("formValidation")
     void validateFormSuccessMessage() {
-        Website website = new Website(driver);
+        FormPage formPage = new FormPage(driver);
         FakeDataGenerator faker = new FakeDataGenerator();
-        assertThat(
-                website.
-                        openWebsite().
-                        navigateToTopBarPage().
-                        clickOnTopMenuBasicButton().
-                        clickOnFormButton().
-                        fillInFirstName(faker.getFakeFirstName()).
-                        fillInLastName(faker.getFakeLastName()).
-                        fillInEmail(faker.getFakeEmail()).
-                        selectRandomSex().
-                        fillInAge(faker.getFakeAdultAge()).
-                        selectRandomYearOfExperience().
-                        selectAutomationTesterProfession().
-                        selectRandomContinent().
-                        selectSeleniumSwitchCommand().
-                        selectSeleniumWaitCommand().
-                        uploadFile(FileHandler.fileToUpload).
-                        clickSignIn().
-                        displayedSuccessMessageText(), equalTo(FormPage.expectedSuccessMessage));
+
+        new Website(driver).
+                openWebsite();
+        new MainPage(driver).
+                navigateToTopBarPage().
+                clickOnTopMenuBasicButton().
+                clickOnFormButton();
+        formPage.
+                fillInFirstName(faker.getFakeFirstName()).
+                fillInLastName(faker.getFakeLastName()).
+                fillInEmail(faker.getFakeEmail()).
+                selectRandomSex().
+                fillInAge(faker.getFakeAdultAge()).
+                selectRandomYearOfExperience().
+                selectAutomationTesterProfession().
+                selectRandomContinent().
+                selectSeleniumSwitchCommand().
+                selectSeleniumWaitCommand().
+                uploadFile(FileHandler.fileToUpload).
+                clickSignIn();
+        assertThat(formPage.displayedSuccessMessageText(), equalTo(FormPage.expectedSuccessMessage));
         logger.info("Test validateFormSuccessMessage completed with success");
     }
 

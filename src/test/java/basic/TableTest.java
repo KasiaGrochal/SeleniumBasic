@@ -3,10 +3,11 @@ package basic;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pages.TopBarPage;
 import pages.Website;
+import pages.basic.MainPage;
 import pages.basic.tablePage.TablePage;
 import testBase.TestBase;
 
@@ -18,13 +19,17 @@ public class TableTest extends TestBase {
     @Tag("regression")
     @Tag("table")
     void printFilterResults() {
-        Website website = new Website(driver);
+
         TablePage tablePage = new TablePage(driver);
-        website.
-                openWebsite().
-                navigateToTopBarPage().
+
+        new Website(driver).
+                openWebsite();
+        new MainPage(driver).
+                navigateToTopBarPage();
+        new TopBarPage(driver).
                 clickOnTopMenuBasicButton().
-                clickOnTableButton().
+                clickOnTableButton();
+        tablePage.
                 printFilteredList(tablePage.filterByHeightAndState());
         logger.info("Printing results finished.");
     }
