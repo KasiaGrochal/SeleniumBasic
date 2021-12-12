@@ -17,7 +17,7 @@ public class TablePage extends BasePage {
     @FindBy(css = "tbody tr")
     private List<WebElement> allRows;
 
-    private List<RowPage> getList(){
+    private List<RowPage> getListOfRowPage(){
         List<RowPage> listOfRowPage = new ArrayList<>();
         for (WebElement element: allRows){
             listOfRowPage.add(new RowPage(element,driver));
@@ -27,7 +27,7 @@ public class TablePage extends BasePage {
 
     public List<String> filterByHeightAndState(){
         List<String> filteredList = new ArrayList<>();
-        for (RowPage rowPage: getList()){
+        for (RowPage rowPage: getListOfRowPage()){
             if((rowPage.getHeight()>4000)&&(rowPage.getState().equals("Switzerland"))){
                 filteredList.add(rowPage.getRankPeakMountainRange());
             }
